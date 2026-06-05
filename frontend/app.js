@@ -1,12 +1,7 @@
-// ================================
-// GLOBAL VARIABLES
-// ================================
+
 let volChart = null;
 let lastPayload = null;
 
-// ================================
-// CSV PARSER
-// ================================
 function parseCSV(text) {
   const rows = text
     .trim()
@@ -30,9 +25,6 @@ function parseCSV(text) {
   return { dates, prices };
 }
 
-// ================================
-// RENDER CHART.JS
-// ================================
 function renderChart(dates, prices, predicted) {
   const ctx = document.getElementById("volChart");
 
@@ -69,9 +61,6 @@ function renderChart(dates, prices, predicted) {
     "Loaded: Historical + Predicted";
 }
 
-// ================================
-// SEND TO BACKEND (FIXED URL)
-// ================================
 async function sendToBackend(prices, horizon, models) {
   try {
     const res = await fetch("http://127.0.0.1:5000/predict", {
@@ -94,17 +83,12 @@ async function sendToBackend(prices, horizon, models) {
   }
 }
 
-// ================================
-// SHOW PREVIEW
-// ================================
+
 function showPreview(text) {
   document.getElementById("dataPreview").innerText =
     text.substring(0, 1000) + "\n\n...(trimmed)...";
 }
 
-// ================================
-// HANDLE DROP ZONE
-// ================================
 const dropZone = document.getElementById("dropZone");
 const fileInput = document.getElementById("fileInput");
 let currentCSV = "";
@@ -132,9 +116,6 @@ fileInput.addEventListener("change", () => {
   handleFile(file);
 });
 
-// ================================
-// HANDLE FILE LOAD
-// ================================
 function handleFile(file) {
   const reader = new FileReader();
 
@@ -146,9 +127,6 @@ function handleFile(file) {
   reader.readAsText(file);
 }
 
-// ================================
-// RUN BUTTON
-// ================================
 document.getElementById("runBtn").addEventListener("click", async () => {
   if (!currentCSV) {
     alert("Please upload a CSV first.");
@@ -197,9 +175,6 @@ document.getElementById("demoBtn").addEventListener("click", () => {
   showPreview(csv);
 });
 
-// ================================
-// DOWNLOAD BUTTON
-// ================================
 document.getElementById("downloadBtn").addEventListener("click", () => {
   if (!lastPayload) {
     alert("Run prediction first.");
